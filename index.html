@@ -1,236 +1,222 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2639
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww21000\viewh11400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>UChicago Men's Rugby – Donation Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-\f0\fs24 \cf0 <!DOCTYPE html>\
-<html lang="en">\
-<head>\
-  <meta charset="UTF-8" />\
-  <title>UChicago Men's Rugby \'96 Donation Tracker</title>\
-  <meta name="viewport" content="width=device-width, initial-scale=1" />\
-  <style>\
-    * \{\
-      box-sizing: border-box;\
-      margin: 0;\
-      padding: 0;\
-    \}\
-\
-    body \{\
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
-      background: #111827;\
-      color: #f9fafb;\
-      min-height: 100vh;\
-      display: flex;\
-      align-items: center;\
-      justify-content: center;\
-      padding: 20px;\
-    \}\
-\
-    .container \{\
-      width: 100%;\
-      max-width: 800px;\
-      background: #1f2937;\
-      border-radius: 16px;\
-      padding: 24px;\
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);\
-    \}\
-\
-    h1 \{\
-      font-size: 1.8rem;\
-      margin-bottom: 4px;\
-      text-align: center;\
-    \}\
-\
-    .subtitle \{\
-      text-align: center;\
-      font-size: 0.95rem;\
-      color: #9ca3af;\
-      margin-bottom: 20px;\
-    \}\
-\
-    .numbers-row \{\
-      display: flex;\
-      justify-content: space-between;\
-      font-size: 0.95rem;\
-      margin-bottom: 8px;\
-    \}\
-\
-    .numbers-row span \{\
-      color: #d1d5db;\
-    \}\
-\
-    .highlight-number \{\
-      font-weight: 600;\
-      color: #fbbf24;\
-    \}\
-\
-    .progress-wrapper \{\
-      width: 100%;\
-      background: #374151;\
-      border-radius: 999px;\
-      overflow: hidden;\
-      height: 24px;\
-      margin-bottom: 8px;\
-    \}\
-\
-    .progress-bar \{\
-      height: 100%;\
-      width: 0%;\
-      background: linear-gradient(to right, #22c55e, #4ade80);\
-      transition: width 0.5s ease-out;\
-    \}\
-\
-    .percent-text \{\
-      text-align: right;\
-      font-size: 0.85rem;\
-      color: #9ca3af;\
-      margin-bottom: 20px;\
-    \}\
-\
-    .donor-section-title \{\
-      font-size: 1.1rem;\
-      margin-bottom: 8px;\
-      border-bottom: 1px solid #374151;\
-      padding-bottom: 4px;\
-    \}\
-\
-    .donor-list \{\
-      list-style: none;\
-      max-height: 350px;\
-      overflow-y: auto;\
-      padding-right: 4px;\
-    \}\
-\
-    .donor-item \{\
-      display: flex;\
-      justify-content: space-between;\
-      align-items: baseline;\
-      padding: 8px 0;\
-      border-bottom: 1px dashed #374151;\
-      font-size: 0.95rem;\
-    \}\
-\
-    .donor-name \{\
-      font-weight: 500;\
-      color: #e5e7eb;\
-    \}\
-\
-    .donor-amount \{\
-      font-weight: 500;\
-      color: #a7f3d0;\
-      margin-left: 8px;\
-      white-space: nowrap;\
-    \}\
-\
-    .footer-note \{\
-      margin-top: 16px;\
-      font-size: 0.8rem;\
-      color: #6b7280;\
-      text-align: center;\
-    \}\
-\
-    @media (max-width: 600px) \{\
-      h1 \{\
-        font-size: 1.4rem;\
-      \}\
-    \}\
-  </style>\
-</head>\
-<body>\
-  <div class="container">\
-    <h1>UChicago Men's Rugby \'96 Donation Tracker</h1>\
-    <p class="subtitle">Help us reach our <span class="highlight-number">$25,000</span> goal for the 2025\'9626 season.</p>\
-\
-    <div class="numbers-row">\
-      <span>Raised so far: <span id="raised" class="highlight-number">$0</span></span>\
-      <span>Goal: <span id="goal">$25,000</span></span>\
-    </div>\
-\
-    <div class="progress-wrapper">\
-      <div class="progress-bar" id="progress-bar"></div>\
-    </div>\
-\
-    <p class="percent-text" id="percent-text">0% of goal reached</p>\
-\
-    <h2 class="donor-section-title">Donors</h2>\
-    <ul class="donor-list" id="donor-list">\
-      <!-- Donors will be inserted here by JavaScript -->\
-    </ul>\
-\
-    <p class="footer-note">\
-      Thank you to everyone supporting UChicago Men's Rugby. Every contribution makes a difference.\
-    </p>\
-  </div>\
-\
-  <script>\
-    // =======================\
-    // CONFIGURATION\
-    // =======================\
-\
-    // Set your goal here:\
-    const GOAL_AMOUNT = 25000;\
-\
-    // Manually edit this array to add donors.\
-    // Example: \{ name: "First Last", amount: 250 \}\
-    const donors = [\
-      \{ name: "Example Donor 1", amount: 1000 \},\
-      \{ name: "Example Donor 2", amount: 500 \},\
-      \{ name: "Example Donor 3", amount: 250 \},\
-      // Add more donors below:\
-      // \{ name: "New Donor", amount: 300 \},\
-    ];\
-\
-    // =======================\
-    // LOGIC \'96 DO NOT NEED TO EDIT\
-    // =======================\
-    function formatMoney(value) \{\
-      return "$" + value.toLocaleString("en-US", \{ maximumFractionDigits: 0 \});\
-    \}\
-\
-    function initDonationTracker() \{\
-      const totalRaised = donors.reduce((sum, d) => sum + d.amount, 0);\
-      const percent = Math.min(100, (totalRaised / GOAL_AMOUNT) * 100);\
-\
-      const raisedEl = document.getElementById("raised");\
-      const goalEl = document.getElementById("goal");\
-      const progressBarEl = document.getElementById("progress-bar");\
-      const percentTextEl = document.getElementById("percent-text");\
-      const donorListEl = document.getElementById("donor-list");\
-\
-      raisedEl.textContent = formatMoney(totalRaised);\
-      goalEl.textContent = formatMoney(GOAL_AMOUNT);\
-      progressBarEl.style.width = percent + "%";\
-      percentTextEl.textContent =\
-        (percent >= 100\
-          ? "Goal reached! "\
-          : "") + `$\{percent.toFixed(1)\}% of goal reached`;\
-\
-      donorListEl.innerHTML = "";\
-\
-      donors.forEach((donor) => \{\
-        const li = document.createElement("li");\
-        li.className = "donor-item";\
-\
-        const nameSpan = document.createElement("span");\
-        nameSpan.className = "donor-name";\
-        nameSpan.textContent = donor.name;\
-\
-        const amountSpan = document.createElement("span");\
-        amountSpan.className = "donor-amount";\
-        amountSpan.textContent = formatMoney(donor.amount);\
-\
-        li.appendChild(nameSpan);\
-        li.appendChild(amountSpan);\
-\
-        donorListEl.appendChild(li);\
-      \});\
-    \}\
-\
-    document.addEventListener("DOMContentLoaded", initDonationTracker);\
-  </script>\
-</body>\
-</html>\
-}
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #111827;
+      color: #f9fafb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      background: #1f2937;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #9ca3af;
+      margin-bottom: 20px;
+    }
+
+    .numbers-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
+    .numbers-row span {
+      color: #d1d5db;
+    }
+
+    .highlight-number {
+      font-weight: 600;
+      color: #fbbf24;
+    }
+
+    .progress-wrapper {
+      width: 100%;
+      background: #374151;
+      border-radius: 999px;
+      overflow: hidden;
+      height: 24px;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, #22c55e, #4ade80);
+      transition: width 0.5s ease-out;
+    }
+
+    .percent-text {
+      text-align: right;
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 20px;
+    }
+
+    .donor-section-title {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #374151;
+      padding-bottom: 4px;
+    }
+
+    .donor-list {
+      list-style: none;
+      max-height: 350px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .donor-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px dashed #374151;
+      font-size: 0.95rem;
+    }
+
+    .donor-name {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .donor-amount {
+      font-weight: 500;
+      color: #a7f3d0;
+      margin-left: 8px;
+      white-space: nowrap;
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>UChicago Men's Rugby '96 Donation Tracker</h1>
+    <p class="subtitle">Help us reach our <span class="highlight-number">$25,000</span> goal for the 2025–26 season.</p>
+
+    <div class="numbers-row">
+      <span>Raised so far: <span id="raised" class="highlight-number">$0</span></span>
+      <span>Goal: <span id="goal">$25,000</span></span>
+    </div>
+
+    <div class="progress-wrapper">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <p class="percent-text" id="percent-text">0% of goal reached</p>
+
+    <h2 class="donor-section-title">Donors</h2>
+    <ul class="donor-list" id="donor-list">
+      <!-- Donors will be inserted here by JavaScript -->
+    </ul>
+
+    <p class="footer-note">
+      Thank you to everyone supporting UChicago Men's Rugby. Every contribution makes a difference.
+    </p>
+  </div>
+
+  <script>
+    // =======================
+    // CONFIGURATION
+    // =======================
+
+    const GOAL_AMOUNT = 25000;
+
+    const donors = [
+      { name: "Example Donor 1", amount: 1000 },
+      { name: "Example Donor 2", amount: 500 },
+      { name: "Example Donor 3", amount: 250 },
+      // Add more donors here:
+      // { name: "New Donor", amount: 300 },
+    ];
+
+    // =======================
+    // LOGIC
+    // =======================
+    function formatMoney(value) {
+      return "$" + value.toLocaleString("en-US", { maximumFractionDigits: 0 });
+    }
+
+    function initDonationTracker() {
+      const totalRaised = donors.reduce((sum, d) => sum + d.amount, 0);
+      const percent = Math.min(100, (totalRaised / GOAL_AMOUNT) * 100);
+
+      const raisedEl = document.getElementById("raised");
+      const goalEl = document.getElementById("goal");
+      const progressBarEl = document.getElementById("progress-bar");
+      const percentTextEl = document.getElementById("percent-text");
+      const donorListEl = document.getElementById("donor-list");
+
+      raisedEl.textContent = formatMoney(totalRaised);
+      goalEl.textContent = formatMoney(GOAL_AMOUNT);
+      progressBarEl.style.width = percent + "%";
+      percentTextEl.textContent =
+        (percent >= 100 ? "Goal reached! " : "") +
+        `${percent.toFixed(1)}% of goal reached`;
+
+      donorListEl.innerHTML = "";
+      donors.forEach((donor) => {
+        const li = document.createElement("li");
+        li.className = "donor-item";
+
+        const nameSpan = document.createElement("span");
+        nameSpan.className = "donor-name";
+        nameSpan.textContent = donor.name;
+
+        const amountSpan = document.createElement("span");
+        amountSpan.className = "donor-amount";
+        amountSpan.textContent = formatMoney(donor.amount);
+
+        li.appendChild(nameSpan);
+        li.appendChild(amountSpan);
+        donorListEl.appendChild(li);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", initDonationTracker);
+  </script>
+</body>
+</html>
